@@ -1,0 +1,25 @@
+fn do_test(x: usize) {
+    let arr = vec![vec![0u8; 3]];
+
+    let mut z = Vec::new();
+    for arr_ref in arr {
+        for y in 0..x {
+            for _ in 0..1 {
+                z.extend(std::iter::repeat(0).take(x));
+                let a = y * x;
+                let b = (y + 1) * x - 1;
+                let slice = &arr_ref[a..b];
+
+                eprintln!("{} {} {} {}", a, b, arr_ref.len(), slice.len());
+
+                let slice1 = &slice[0..(1 << 24)];
+                eprintln!("{:?}", slice1.last());
+            }
+        }
+    }
+}
+
+fn main() {
+    do_test(1);
+    do_test(2);
+}
