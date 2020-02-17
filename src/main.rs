@@ -9,11 +9,8 @@ fn do_test(x: usize) {
                 let a = y * x;
                 let b = (y + 1) * x - 1;
                 let slice = &arr_ref[a..b];
-
                 eprintln!("{} {} {} {}", a, b, arr_ref.len(), slice.len());
-
-                let slice1 = &slice[0..(1 << 24)];
-                eprintln!("{:?}", slice1.last());
+                eprintln!("{:?}", slice[1 << 24]);
             }
         }
     }
