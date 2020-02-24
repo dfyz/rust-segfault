@@ -1,8 +1,8 @@
 fn do_test(x: usize) {
-    let arr = vec![vec![0u8; 3]];
+    let mut arr = vec![vec![0u8; 3]];
 
     let mut z = vec![0];
-    for arr_ref in arr {
+    for arr_ref in arr.iter_mut() {
         for y in 0..x {
             for _ in 0..1 {
                 z.reserve_exact(x);
@@ -14,9 +14,8 @@ fn do_test(x: usize) {
                 });
                 let a = y * x;
                 let b = (y + 1) * x - 1;
-                let slice = &arr_ref[a..b];
-                eprintln!("{} {} {} {}", a, b, arr_ref.len(), slice.len());
-                eprintln!("{:?}", slice[1 << 24]);
+                let slice = &mut arr_ref[a..b];
+                slice[1 << 24] += 1;
             }
         }
     }
