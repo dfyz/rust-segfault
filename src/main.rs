@@ -1,13 +1,22 @@
 fn do_test(x: usize) {
-    let mut z = Vec::new();
-    for _ in 0..1 {
+    let arr = vec![vec![0u8; 3]];
+
+    let mut z = vec![0];
+    for arr_ref in arr {
         for y in 0..x {
             for _ in 0..1 {
-                z.extend(std::iter::repeat(0).take(x));
+                z.reserve_exact(x);
+                let iterator = std::iter::repeat(0).take(x);
+                let mut cnt = 0;
+                iterator.for_each(|_| {
+                    z[0] = 0;
+                    cnt += 1;
+                });
                 let a = y * x;
                 let b = (y + 1) * x - 1;
-                let slice = &mut z[a..b];
-                slice[1 << 24] += 1;
+                let slice = &arr_ref[a..b];
+                eprintln!("{} {} {} {}", a, b, arr_ref.len(), slice.len());
+                eprintln!("{:?}", slice[1 << 24]);
             }
         }
     }
